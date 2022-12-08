@@ -11,15 +11,15 @@ export default function renderCountries(countries) {
 
       if (arr.length === 1) {
         return `
-      <p><img src="${svg}" width="50" height="50"> ${official}</p>
-      <p>Capital: ${capital}</p>
-      <p>Population: ${population}</p>
-      <p>Languages: ${Object.values(languages)}</p>
+      <div class="country"><img src="${svg}" width="50" height="50"><h2>${official}</h2></div>
+      <p><b>Capital</b>: ${capital}</p>
+      <p><b>Population</b>: ${population}</p>
+      <p><b>Languages</b>: ${Object.values(languages)}</p>
     `;
       }
 
       return `
-      <p><img src="${svg}" width="50" height="50"> ${official}</p>
+      <p class="country-item"><img src="${svg}" width="50" height="50"> ${official}</p>
     `;
     })
     .join('');
