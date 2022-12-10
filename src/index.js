@@ -16,31 +16,31 @@ refs.searchInput.addEventListener(
 function onSearchInputChange() {
   counriesApiService.searchQuery = refs.searchInput.value.trim();
 
+  clearRender();
+
   if (!counriesApiService.searchQuery) {
-    clearRender();
     return Notify.warning('Please enter country');
   }
 
   counriesApiService.fetchCountries().then(countries => {
-    if (countries.length > 10) {
-      clearRender();
-      Notify.info('Too many matches found. Please enter a more specific name.');
+    if (!countries) {
       return;
     }
 
-    if (countries.length > 1) {
-      clearRender();
+    if (countries.length > 10) {
+      Notify.info('Too many matches found. Please enter a more specific name.');
+      return;
+    } else if (countries.length > 1) {
       refs.countryList.insertAdjacentHTML(
         'beforeend',
         renderCountries(countries)
       );
+    } else {
+      refs.countryInfo.insertAdjacentHTML(
+        'beforeend',
+        renderCountries(countries)
+      );
     }
-
-    clearRender();
-    refs.countryInfo.insertAdjacentHTML(
-      'beforeend',
-      renderCountries(countries)
-    );
   });
 }
 
